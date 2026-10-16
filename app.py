@@ -13,8 +13,18 @@ def db():
 def as_dict(r):
     return {"id": r["id"], "title": r["title"], "done": bool(r["done"]), "priority": r["priority"]}
 
+def db_ok():
+    try:
+        with db() as con:
+            con.execute("SELECT 1")
+        return True
+    except sqlite3.Error:
+        return False
+
 @app.get("/health")
 def health():
+    if not db_ok():
+        return {"status": "error"}, 503
     return {"status": "ok"}
 
 @app.get("/tasks")
