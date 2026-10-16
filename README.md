@@ -1,4 +1,6 @@
-# Tasks API
+# Tasks API (practice copy)
+
+> **Practice copy for the DevOps track, Course 6, Lesson 6 (Retell, reflect and practise: the pipeline as a gate).** It has the whole Course 6 pipeline in `.github/workflows/ci.yml`: tests on Python 3.12 and 3.13 for every push and pull request, then an image pushed to GHCR for every merge to main. A ruleset, `protect-main`, makes both test jobs required status checks, so a red pull request cannot be merged. The real project is https://github.com/agl-learn-examples/devops-tasks-api
 
 A tiny to-do list REST API in Python and Flask. It is the running example for the **DevOps track on [agentlabs learn](https://learning.myagentlabs.ai)**: every course adds one layer to this same project, from running it on your laptop to Git, Docker, Compose, CI, nginx, the cloud and Kubernetes.
 
