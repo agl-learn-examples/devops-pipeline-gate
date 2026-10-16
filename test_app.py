@@ -14,6 +14,12 @@ def test_health(client):
     assert r.get_json() == {"status": "ok"}
 
 
+def test_get_missing_task(client):
+    r = client.get("/tasks/99")
+    assert r.status_code == 404
+    assert r.get_json() == {"error": "not found"}
+
+
 def test_create_and_list(client):
     r = client.post("/tasks", json={"title": "learn HTTP"})
     assert r.status_code == 201
