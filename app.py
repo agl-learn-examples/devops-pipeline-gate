@@ -48,11 +48,15 @@ def create_task():
     task = {"id": cur.lastrowid, "title": data["title"], "done": False, "priority": priority}
     return task, 201, {"Location": f"/tasks/{task['id']}"}
 
-@app.get("/tasks/<int:task_id>")
-def get_task(task_id):
+def find_task(task_id):
     with db() as con:
         r = con.execute("SELECT * FROM tasks WHERE id = ?", (task_id,)).fetchone()
-    return as_dict(r) if r else ({"error": "not found"}, 404)
+    return as_dict(r) if r else None
+
+@app.get("/tasks/<int:task_id>")
+def get_task(task_id):
+    task = find_task(task_id)
+    return task if task else ({"error": "not found"}, 404)
 
 @app.put("/tasks/<int:task_id>")
 def replace_task(task_id):
